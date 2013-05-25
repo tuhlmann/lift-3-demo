@@ -1,0 +1,62 @@
+<div data-lift="surround?with=default;at=content">
+  <div data-lift="Notices"></div>
+  <div class="row">
+    <div class="span12">
+      <form data-lift="Form.ajax?class=form-horizontal">
+        <span lift="UserLogin">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="email"></label>
+              <div class="controls">
+                <p><strong>Enter your email address:</strong></p>
+                <input class="xlarge" maxlength="254" id="id_email" size="32" name="email" type="text" value="" />
+                <span data-alertid="id_email_err" class="notice-block"></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <p><strong>Do you have a lift-mongo-app password?</strong></p>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <input id="no_password" /> <span>No, help me log in.</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <input id="yes_password" /> <span>Yes, I have a <strong>password</strong>:</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <input class="xlarge" id="id_password" />
+                <span data-alertid="id_password_err" class="notice-block"></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label class="checkbox">
+                  <input class="xlarge" name="remember" />
+                  Remember me when I come back later.
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-actions">
+            <input id="id_submit" />
+            <input type="submit" class="btn btn-primary" value="Submit"></input>
+            <span lift="Menu.item?name=Home;a:class=btn">Cancel</span>
+          </div>
+        </span>
+      </form>
+    </div>
+  </div>
+  <tail>
+    <script>
+    $(document).ready(function() {
+      App.views.user.Login.init();
+    });
+    </script>
+  </tail>
+</div>

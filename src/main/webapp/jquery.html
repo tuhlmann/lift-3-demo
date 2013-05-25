@@ -1,0 +1,71 @@
+<div data-lift="surround?with=base-wrap;at=content">
+  <head_merge>
+    <title lift="Menu.title">Lift 3 Demo: %*%</title>
+    <script>
+      // function findSuggestions(term, callback) {
+        // console.log("term="+term);
+        // var data = ["a", "beta"];
+        // callback(data);
+      // }
+
+      $(document).ready(function() {
+        $( "#query_cb" ).autocomplete({
+          minLength: 2,
+          delay: 200,
+          source: function( request, response ) {
+            var term = request.term;
+            // findSuggestions(term, function( data ) {
+              // response( data );
+            // });
+            findSuggestions_callback(term, response);
+          }
+        });
+
+        $( "#query_rt" ).autocomplete({
+          minLength: 2,
+          delay: 200,
+          source: function( request, response ) {
+            var term = request.term;
+            // findSuggestions(term, function( data ) {
+              // response( data );
+            // });
+            findSuggestions.find(term).then(response);
+          }
+        });
+      });
+    </script>
+
+  </head_merge>
+  <div class="main-content">
+    <div lift="Notices"></div>
+
+    <!-- jQuery autocomplete with Ajax function with callback -->
+    <div class="hero-unit" lift="JquerySnippet.callback">
+      <div class="inner" style="text-align: center">
+        <h2>jQuery Callback Autocomplete</h2>
+        <form class="input-append" style="width:100%">
+          <input id="query_cb" type="text" class="search-box" style="width: 40%;">
+          <button type="submit" class="btn btn-primary search-box" id="search-btn">
+            &nbsp;<i class="icon-search icon-white icon-large"></i>&nbsp;
+          </button>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- jQuery autocomplete with Lift 3 roundtrip -->
+    <div class="hero-unit" lift="JquerySnippet.roundTrip">
+      <div class="inner" style="text-align: center">
+        <h2>jQuery Roundtrip Autocomplete</h2>
+        <form class="input-append" style="width:100%">
+          <input id="query_rt" type="text" class="search-box" style="width: 40%;">
+          <button type="submit" class="btn btn-primary search-box" id="search-btn">
+            &nbsp;<i class="icon-search icon-white icon-large"></i>&nbsp;
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <span data-lift="embed?what=/templates-hidden/parts/footer"></span>
+</div>

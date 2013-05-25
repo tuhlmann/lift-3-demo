@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Lift 3 Demo">
+    <meta name="Copyright" content="Copyright Lift 3 Demo 2012. All Rights Reserved.">
+
+    <!-- Minified styles for production-->
+    <link data-lift="ProductionOnly" href="/media/styles/styles.css" rel="stylesheet">
+
+    <!-- full reloadable styles for development -->
+    <link data-lift="NotInProduction" rel="stylesheet/less" type="text/css" href="/media/styles/styles.less">
+
+    <!--<script src="/media/gen/script.js"></script>-->
+    <script data-lift="NotInProduction" src="/media/js/libs/less-1.3.3.min.js"></script>
+    <!--<link   data-lift="NotInProduction" href="/media/css/styles.css" rel="stylesheet">-->
+
+    <script lift="JavaScriptLoader?prod=/media/js/script.js;dev=/media/js/script.jsm;pf=/media/js/"></script>
+
+    <!-- fav and touch icons -->
+    <!--
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+  </head>
+  <body>
+    <span data-lift="Html5Shim"></span>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Lift 3 Demo</a>
+          <div class="nav-collapse collapse">
+            <ul data-lift="Menus.group?group=topbar" class="nav"></ul>
+            <span data-lift="UserTopbar"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="content" class="container-fluid"></div><!-- /container -->
+  </body>
+</html>

@@ -1,0 +1,115 @@
+// Override some defaults
+html, body {
+  background-color: #eee;
+  padding-bottom: 40px;
+}
+
+.main-content {
+  background-color: @white;
+  padding: 20px;
+  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+  -webkit-border-radius: 0 0 6px 6px;
+     -moz-border-radius: 0 0 6px 6px;
+          border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+          box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+.hero-unit {
+  h2 {
+    font-size: 36px;
+  }
+}
+
+// FORM FIELD FEEDBACK STATES
+// --------------------------
+
+/**
+  * Default is to change the color of the help text to the same as the alert.
+  * This returns help text to original color.
+  */
+.customFormFieldState(@groupColor) {
+  .help-block,
+  .help-inline {
+    color: lighten(@textColor, 15%); // lighten the text some for contrast
+  }
+}
+
+// Warning
+.control-group.warning {
+  .customFormFieldState(@warningText);
+}
+// Error
+.control-group.error {
+  .customFormFieldState(@errorText);
+}
+// Success
+.control-group.success {
+  .customFormFieldState(@successText);
+}
+// Info
+.control-group.info {
+  .customFormFieldState(@infoText);
+}
+
+/**
+  * For coloring id notices
+  */
+.alert-block {
+  .warning {
+    color: @warningText;
+  }
+  .error {
+    color: @errorText;
+  }
+  .success {
+    color: @successText;
+  }
+  .info {
+    color: @infoText;
+  }
+}
+
+#user img {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: top;
+  margin-right: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+#user-header {
+  line-height: 4em;
+
+  img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+    border: none;
+    cursor: pointer;
+  }
+
+  h3 {
+    display: inline-block;
+  }
+}
+
+div.gravatar {
+  float:left;
+  margin-left:10px;
+  max-width: 320px;
+
+  img {
+    padding-top:10px;
+  }
+}
+
+// fixes gap between navbar and section below it
+@media (max-width: @navbarCollapseWidth) {
+  .navbar-fixed-top {
+    margin-bottom: 0px;
+  }
+}
