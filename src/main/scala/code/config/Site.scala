@@ -35,13 +35,12 @@ object Site extends Locs {
   ) / "user" >> Loc.CalcValue(() => User.currentUser)
   lazy val profileLoc = profileParamMenu.toLoc
 
-  val markdown = MenuLoc(Menu.i("Markdown")                    / "markdown"  >> RequireLoggedIn >> TopBarGroup)
-  val futures  = MenuLoc(Menu.i("Futures")                     / "futures"   >> RequireLoggedIn >> TopBarGroup)
-  val promises = MenuLoc(Menu.i("Promises")                    / "promises"  >> RequireLoggedIn >> TopBarGroup)
-  val actors   = MenuLoc(Menu  ("Actors", "C/S Actors")        / "actors"    >> RequireLoggedIn >> TopBarGroup)
-  val dataAttr = MenuLoc(Menu  ("DataAttr", "Data Attributes") / "data_attr" >> RequireLoggedIn >> TopBarGroup)
-  val jquery   = MenuLoc(Menu.i("jQuery")                      / "jquery"    >> RequireLoggedIn >> TopBarGroup)
-  val angular  = MenuLoc(Menu.i("AngularJS")                   / "angular"   >> RequireLoggedIn >> TopBarGroup)
+  val markdown = MenuLoc(Menu.i("Markdown")                    / "markdown"     >> RequireLoggedIn >> TopBarGroup)
+  val futures  = MenuLoc(Menu.i("Futures")                     / "futures"      >> RequireLoggedIn >> TopBarGroup)
+  val promises = MenuLoc(Menu.i("Promises")                    / "promises"     >> RequireLoggedIn >> TopBarGroup)
+  val actors   = MenuLoc(Menu  ("Actors", "C/S Actors")        / "actors"       >> RequireLoggedIn >> TopBarGroup)
+  val dataAttr = MenuLoc(Menu  ("DataAttr", "Data Attributes") / "data_attr"    >> RequireLoggedIn >> Hidden)
+  val todoApp  = MenuLoc(Menu  ("Todo", "Angular Todo")        / "angular_todo" >> RequireLoggedIn >> TopBarGroup)
 
   val password = MenuLoc(Menu.i("Password") / "settings" / "password" >> RequireLoggedIn >> SettingsGroup)
   val account = MenuLoc(Menu.i("Account") / "settings" / "account" >> SettingsGroup >> RequireLoggedIn)
@@ -55,8 +54,7 @@ object Site extends Locs {
     promises.menu,
     actors.menu,
     dataAttr.menu,
-    jquery.menu,
-    angular.menu,
+    todoApp.menu,
     Menu.i("Login") / "login" >> RequireNotLoggedIn,
     register.menu,
     loginToken.menu,

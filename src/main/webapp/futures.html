@@ -1,0 +1,47 @@
+<div data-lift="surround?with=base-wrap;at=content">
+  <head_merge>
+    <title lift="Menu.title">Lift 3 Demo: %*%</title>
+  </head_merge>
+  <div class="main-content" ng-app>
+    <div lift="Notices"></div>
+
+    <h1>Futures</h1>
+
+    <div>
+      <h5>
+        The following text takes long to calculate and is calculated parallel to the rest of the site.
+        When all is rendered the site is pushed.
+      </h5>
+      <div data-ad-processor="long-running-calculation">
+
+      </div>
+    </div>
+
+    <p></p>
+
+    <div ng-controller="WpSuggestionsCtrl">
+
+    <div class="hero-unit">
+      <div class="inner" style="text-align: center">
+        <h2>Wikipedia Suggestions</h2>
+        <form class="input-append" ng-submit="getSuggestions()">
+          <input ng-model="wpQuery" type="text" class="search-box" style="width: 40%;">
+          <button class="btn btn-primary search-box">
+            &nbsp;<i class="icon-search icon-white icon-large"></i>&nbsp;
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <h2>Suggestions:</h2>
+    <ul class="unstyled">
+      <li ng-repeat="suggestion in suggestions">
+        <a href="{{suggestion.link}}" target="_blank"><span>{{suggestion.suggestion}}</span></a>
+      </li>
+    </ul>
+
+    </div>
+
+  </div>
+  <span data-lift="embed?what=/templates-hidden/parts/footer"></span>
+</div>

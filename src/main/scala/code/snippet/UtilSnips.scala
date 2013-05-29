@@ -46,8 +46,12 @@ object JavaScriptLoader {
         }) openOr in
       case _ =>
         (for (p <- S.attr("dev")) yield {
-          findFiles(p).map { file =>
-            <script src={adaptPath(file)}></script>
+          if (p.endsWith(".jsm")) {
+            findFiles(p).map { file =>
+              <script src={adaptPath(file)}></script>
+            }
+          } else {
+            <script src={p} lift="with-resource-id"></script>
           }
         }) openOr in
     }

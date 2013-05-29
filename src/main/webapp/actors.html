@@ -1,0 +1,33 @@
+<div data-lift="surround?with=base-wrap;at=content">
+  <head_merge>
+    <title lift="Menu.title">Lift 3 Demo: %*%</title>
+  </head_merge>
+  <script lift="ClientServerActorSnippet"></script>
+  <div class="main-content" ng-app>
+    <div lift="Notices"></div>
+
+    <h1>Client / Server Actors</h1>
+    <p style="margin-top:20px"></p>
+
+    <div ng-controller="ActorsCtrl">
+
+    <form class="form-inline input-append" ng-submit="blabber()">
+      <label><strong>Say Something:&nbsp;</strong></label>
+      <input ng-model="whatISaid" type="text" class="input-xlarge">
+      <button class="btn btn-primary">
+        &nbsp;<i class="icon-ok icon-white icon-large"></i>&nbsp;
+      </button>
+    </form>
+
+    <h4 style="margin-bottom: 10px;">Messages:</h4>
+    <ul class="unstyled">
+      <li ng-repeat="message in messages">
+        <span>{{message.from}} says: {{message.text}}</span>
+      </li>
+    </ul>
+
+    </div>
+
+  </div>
+  <span data-lift="embed?what=/templates-hidden/parts/footer"></span>
+</div>

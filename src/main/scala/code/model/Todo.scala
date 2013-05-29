@@ -4,12 +4,11 @@ import net.liftweb.common._
 import net.liftweb.util.Helpers._
 import net.liftweb.json.JsonDSL._
 import net.liftweb.mapper._
-import net.liftmodules.mapperauth.model.share.MapperWithId
 import net.liftweb.json.JsonAST._
 import net.liftweb.json.JsonAST.JField
 import net.liftweb.json.JsonAST.JObject
 
-trait JsonConverter[OwnerType <: Mapper[OwnerType]] extends MetaMapper[OwnerType] {
+trait JsonConverter[OwnerType <: Mapper[OwnerType] with IdPK] extends MetaMapper[OwnerType] {
   self: OwnerType =>
 
   def filterJson(in: JObject): JValue = in
@@ -18,8 +17,13 @@ trait JsonConverter[OwnerType <: Mapper[OwnerType]] extends MetaMapper[OwnerType
     filterJson(encodeAsJSON_!(in))
   }
 
+  def findById(id: Long): Box[OwnerType]
+  def copyChanges(orig: OwnerType, neo: OwnerType): OwnerType
+
   def apply(json: JValue): Box[OwnerType] = json match {
-    case JObject(j) => tryo { decodeFromJSON_!(j, false) }
+    case JObject(j) =>
+      val obj = tryo { decodeFromJSON_!(j, false) }
+      obj.flatMap(o => if (o.id.is > 0) findById(o.id.is).map(db => copyChanges(db, o)) else Full(o))
     case _ => Empty
   }
 
@@ -28,6 +32,12 @@ trait JsonConverter[OwnerType <: Mapper[OwnerType]] extends MetaMapper[OwnerType
 }
 
 object Todo extends Todo with LongKeyedMetaMapper[Todo] with JsonConverter[Todo] {
+
+  def findById(id: Long): Box[Todo] = Todo.find(id)
+
+  def copyChanges(orig: Todo, neo: Todo): Todo = {
+    orig.text(neo.text.is).priority(neo.priority.is).done(neo.done.is)
+  }
 
   def findAllByUser(): List[JValue] = {
     val re = ((for (user <- User.currentUser) yield {
@@ -50,9 +60,7 @@ object Todo extends Todo with LongKeyedMetaMapper[Todo] with JsonConverter[Todo]
    * deleted item or Empty if there's no match
    */
   def delete(id: Long): Box[Todo] = {
-    println("XX In Delete")
     (for (ret <- Todo.find(id)) yield {
-      println("XX Item found")
       ret.delete_!
       ret
     })
@@ -61,7 +69,7 @@ object Todo extends Todo with LongKeyedMetaMapper[Todo] with JsonConverter[Todo]
 
 }
 
-class Todo private() extends MapperWithId[Todo] with UserId[Todo] with CreatedUpdated {
+class Todo private() extends LongKeyedMapper[Todo] with IdPK with UserId[Todo] with CreatedUpdated {
   def getSingleton = Todo
 
   object text extends MappedString(this, 1000) {
@@ -84,11 +92,11 @@ class Todo private() extends MapperWithId[Todo] with UserId[Todo] with CreatedUp
     override def displayName = "Done ?"
   }
 
-  override def save =  {
-    (for (user <- User.currentUser) yield {
-      this.userId(user.id.is)
-      super.save
-    }) openOr false
-  }
+//  override def save =  {
+//    (for (user <- User.currentUser) yield {
+//      this.userId(user.id.is)
+//      super.save
+//    }) openOr false
+//  }
 
 }

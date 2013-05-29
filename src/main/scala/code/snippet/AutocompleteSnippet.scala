@@ -13,7 +13,7 @@ import net.liftweb.http.SHtml
 import net.liftweb.http.js.JE.JsRaw
 import net.liftweb.http.AjaxContext
 
-object JquerySnippet {
+object AutocompleteSnippet {
 
  val languages = List(
     "C", "C++", "Clojure", "CoffeeScript", "Java", "JavaScript", "Jython", "Lua",
@@ -26,7 +26,7 @@ object JquerySnippet {
     def findSuggestions(): JsCmd = {
       def search2(jvalue: JValue): JValue = {
         val JString(term) = jvalue \ "term"
-        val words = JquerySnippet.languages.filter(_.toLowerCase startsWith term.toLowerCase())
+        val words = AutocompleteSnippet.languages.filter(_.toLowerCase startsWith term.toLowerCase())
         words.sorted
       }
       Function("findSuggestions_callback", List("term", "callback"),
@@ -37,12 +37,15 @@ object JquerySnippet {
   }
 
 
+  /**
+   * Roundtrip implementation
+   */
   def roundTrip(in: NodeSeq): NodeSeq = {
 
     // If an exception is thrown during the save, the client automatically
     // gets a Failure
     def doFind(param: String): JValue = {
-      val words = JquerySnippet.languages.filter(_.toLowerCase startsWith param.toLowerCase())
+      val words = AutocompleteSnippet.languages.filter(_.toLowerCase startsWith param.toLowerCase())
       words.sorted
     }
 
@@ -50,6 +53,28 @@ object JquerySnippet {
     val script = (for (sess <- S.session) yield {
       Script(
         JsCrVar("findSuggestions", sess.buildRoundtrip(List[RoundTripInfo](
+        "find" -> doFind _))))
+
+      }) openOr (Script(Noop))
+
+    in ++ script
+  }
+
+
+  /**
+   * Roundtrip for Typeahead
+   */
+  def typeAheadRoundTrip(in: NodeSeq): NodeSeq = {
+    // If an exception is thrown during the save, the client automatically
+    // gets a Failure
+    def doFind(param: String): JValue =
+      languages.filter(_.toLowerCase startsWith param.toLowerCase()).sorted
+
+
+    // Associate the server functions with client-side functions
+    val script = (for (sess <- S.session) yield {
+      Script(
+        JsCrVar("findSuggestions_typeahead", sess.buildRoundtrip(List[RoundTripInfo](
         "find" -> doFind _))))
 
       }) openOr (Script(Noop))

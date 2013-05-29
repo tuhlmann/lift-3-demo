@@ -23,7 +23,8 @@ resolvers ++= Seq(
     "org.eclipse.jetty"       %  "jetty-webapp"      % "8.1.7.v20120910"       %  "container",
     "net.liftmodules"         %% "mapperauth_2.5"    % "0.1-SNAPSHOT"          %  "compile" intransitive(),
     "net.liftmodules"         %% "extras_2.5"        % "0.1"                   %  "compile" intransitive(),
-    "com.h2database"          %  "h2"                % "1.2.138"
+    "com.h2database"          %  "h2"                % "1.2.138",
+    "net.databinder.dispatch" %% "dispatch-core"     % "0.10.0"
   )
 }
 

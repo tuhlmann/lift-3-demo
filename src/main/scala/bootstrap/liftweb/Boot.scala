@@ -11,6 +11,11 @@ import code.config._
 import code.model.{SystemUser, User}
 import net.liftmodules.extras.{Gravatar, LiftExtras}
 import net.liftmodules.mapperauth.MapperAuth
+import code.lib.FuturesRest
+import code.service.TodoApi
+import net.liftweb.actor.LAFuture
+import scala.xml.Text
+import code.lib.DataAttributes
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -83,6 +88,20 @@ class Boot extends Loggable {
     // Mailer
     Mailer.devModeSend.default.set((m: MimeMessage) => logger.info("Dev mode message:\n" + prettyPrintMime(m)))
     Mailer.testModeSend.default.set((m: MimeMessage) => logger.info("Test mode message:\n" + prettyPrintMime(m)))
+
+    // Add REST API
+    LiftRules.dispatch.append(FuturesRest)
+
+    // Or, guard the API if only avl. for logged in users, so you don't have to do it at every call
+//    val withAuthentication: PartialFunction[Req, Unit] = { case _ if User.isLoggedIn => }
+//    LiftRules.dispatch.append(withAuthentication guard TodoApi)
+
+    // Add a DataProcessor
+    LiftRules.dataAttributeProcessor.append {
+      case ("ad-processor", str, nodes, _) => DataAttributes.adProcessor(str, nodes)
+    }
+
+
   }
 
   private def prettyPrintMime(m: MimeMessage): String = {
