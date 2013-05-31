@@ -3,7 +3,6 @@ name := "lift-3-demo"
 scalaVersion := "2.10.1"
 
 resolvers ++= Seq(
-  "Liftmodules repo"               at "https://repository-liftmodules.forge.cloudbees.com/release",
   "Java.net Maven2 Repository"     at "http://download.java.net/maven/2/",
   "Sonatype scala-tools repo"      at "https://oss.sonatype.org/content/groups/scala-tools/",
   "Sonatype scala-tools releases"  at "https://oss.sonatype.org/content/repositories/releases",

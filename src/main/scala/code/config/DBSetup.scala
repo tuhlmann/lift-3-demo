@@ -19,7 +19,7 @@ object DBSetup {
 
   /**
    * Add system roles.
-   * FIXME: Adjust permissions!
+   * FIXME: This is just an example. Adapt to your use case.
    */
   def setupStandardRoles {
 
@@ -28,12 +28,6 @@ object DBSetup {
     Role.findOrCreateAndSave(Role.R_TEAM_OWNER, Role.CAT_TEAM, APermission.all)
     Role.findOrCreateAndSave(Role.R_TEAM_MEMBER, Role.CAT_TEAM, APermission.all)
     Role.findOrCreateAndSave(Role.R_TEAM_WATCHER, Role.CAT_TEAM, APermission.all)
-
-
-//      for (user <- User.findByEmail("help@localhost.com")) {
-//        user.user_roles.addRole(roleId)
-//        user.save
-//      }
 
   }
 

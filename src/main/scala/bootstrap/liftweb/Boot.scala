@@ -11,11 +11,12 @@ import code.config._
 import code.model.{SystemUser, User}
 import net.liftmodules.extras.{Gravatar, LiftExtras}
 import net.liftmodules.mapperauth.MapperAuth
-import code.lib.FuturesRest
+import code.service.FuturesRest
 import code.service.TodoApi
 import net.liftweb.actor.LAFuture
 import scala.xml.Text
 import code.lib.DataAttributes
+import code.service.FuturesRest
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -23,6 +24,10 @@ import code.lib.DataAttributes
  */
 class Boot extends Loggable {
   def boot {
+
+    /*
+     * Writing to log file configured in ...logback.xml
+     */
     logger.info("Run Mode: "+Props.mode.toString)
 
     // init database
@@ -92,9 +97,10 @@ class Boot extends Loggable {
     // Add REST API
     LiftRules.dispatch.append(FuturesRest)
 
+    // ALTERNATIVE:
     // Or, guard the API if only avl. for logged in users, so you don't have to do it at every call
-//    val withAuthentication: PartialFunction[Req, Unit] = { case _ if User.isLoggedIn => }
-//    LiftRules.dispatch.append(withAuthentication guard TodoApi)
+    // val withAuthentication: PartialFunction[Req, Unit] = { case _ if User.isLoggedIn => }
+    // LiftRules.dispatch.append(withAuthentication guard TodoApi)
 
     // Add a DataProcessor
     LiftRules.dataAttributeProcessor.append {

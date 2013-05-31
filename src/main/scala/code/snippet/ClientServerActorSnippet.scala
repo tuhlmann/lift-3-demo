@@ -34,7 +34,10 @@ class ClientServerActorSnippet extends SnippetHelper {
   implicit val formats = DefaultFormats
 
   def render(in: NodeSeq): NodeSeq = {
-    (for { sess <- S.session; user <- User.currentUser } yield {
+    (for {
+      sess <- S.session
+      user <- User.currentUser
+    } yield {
       // get a server-side actor that when we send
       // a JSON serializable object, it will send it to the client
       // and call the named function with the parameter
@@ -43,7 +46,6 @@ class ClientServerActorSnippet extends SnippetHelper {
       // Create a server-side Actor that will receive messages when
       // a function on the client is called
       val serverActor = new ScopedLiftActor {
-        //override def registerWith = ClientServerActor
         override def lowPriority = {
 
           case JString(str) =>
@@ -58,7 +60,9 @@ class ClientServerActorSnippet extends SnippetHelper {
       ClientServerActor ! AddAListener(serverActor, {case _ => true})
       ClientServerActor ! InitMessages(serverActor)
 
-      // TODO: Use Tim Nelsons way to create the messages in a namespaced object
+      // ALTERNATIVE:
+      // You could alternatively define your JS variable like this. Either append the
+      // Script to in ++ script or add it like below..
       //Script(JsRaw("var messageToServer = " + sess.clientActorFor(serverActor).toJsCmd).cmd &
       //       JsRaw("function messageFromServer(data) { $(document).trigger('new-chat-msg', data); }").cmd)
 

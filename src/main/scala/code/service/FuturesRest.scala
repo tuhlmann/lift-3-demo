@@ -1,13 +1,12 @@
-package code.lib
+package code.service
 
 import net.liftweb.http.rest.RestHelper
 import net.liftweb.actor.LAFuture
 import net.liftweb.util.Helpers._
 import dispatch._
-import Defaults._
+import dispatch.Defaults._
 import net.liftweb.json._
 import net.liftweb.http.LiftResponse
-import net.liftweb.http.JsonResponse
 import net.liftweb.common._
 import net.liftweb.http.rest.RestContinuation
 import net.liftweb.http.NotFoundResponse

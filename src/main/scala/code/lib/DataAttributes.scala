@@ -10,8 +10,9 @@ object DataAttributes {
 
   def adProcessor(str: String, nodes: Elem) = {
     LAFuture.build({
-        //Thread.sleep(5000)
-        ("div *+" #> str).apply(Text("This currently doesn't work right, but when it does, this text is asynchroneously pushed to the page when its ready..."))
+        Thread.sleep(100)
+        ("div *+" #> str).apply(
+            Text("These very important bits are calculated in parallel and then merged into the page we sent to the client."))
       })
   }
 

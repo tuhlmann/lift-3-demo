@@ -2,7 +2,6 @@ package code.comet
 
 import net.liftweb.http.ListenerManager
 import net.liftweb.actor.LiftActor
-import scala.collection.immutable.Vector
 
 case class ChatMessage(from: String, text: String)
 case class InitMessages(who: LiftActor)

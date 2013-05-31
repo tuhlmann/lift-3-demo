@@ -50,14 +50,13 @@ object AutocompleteSnippet {
     }
 
     // Associate the server functions with client-side functions
-    val script = (for (sess <- S.session) yield {
-      Script(
-        JsCrVar("findSuggestions", sess.buildRoundtrip(List[RoundTripInfo](
-        "find" -> doFind _))))
+    for (sess <- S.session) {
+      val script = JsCrVar("findSuggestions",
+                   sess.buildRoundtrip(List[RoundTripInfo]("find" -> doFind _)))
+      S.appendGlobalJs(script)
+    }
 
-      }) openOr (Script(Noop))
-
-    in ++ script
+    in
   }
 
 
@@ -72,14 +71,14 @@ object AutocompleteSnippet {
 
 
     // Associate the server functions with client-side functions
-    val script = (for (sess <- S.session) yield {
-      Script(
-        JsCrVar("findSuggestions_typeahead", sess.buildRoundtrip(List[RoundTripInfo](
-        "find" -> doFind _))))
+    for (sess <- S.session) {
+      val script = JsCrVar("findSuggestions_typeahead",
+                   sess.buildRoundtrip(List[RoundTripInfo]("find" -> doFind _)))
 
-      }) openOr (Script(Noop))
+      S.appendGlobalJs(script)
+    }
 
-    in ++ script
+    in
   }
 
 }
