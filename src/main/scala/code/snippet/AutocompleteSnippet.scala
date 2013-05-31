@@ -12,21 +12,16 @@ import net.liftweb.http.js.JsCmd
 import net.liftweb.http.SHtml
 import net.liftweb.http.js.JE.JsRaw
 import net.liftweb.http.AjaxContext
+import code.lib.util.Languages
 
 object AutocompleteSnippet {
-
- val languages = List(
-    "C", "C++", "Clojure", "CoffeeScript", "Java", "JavaScript", "Jython", "Lua",
-    "POP-11", "Prolog", "Python", "Processing", "Groovy", "Ruby", "Haskell", "Kotlin",
-    "Scala", "Scheme", "Smalltalk", "SuperCollider", "Dart", "Scheme", "Lisp"
-  )
 
   def callback(in: NodeSeq): NodeSeq = {
 
     def findSuggestions(): JsCmd = {
       def search2(jvalue: JValue): JValue = {
         val JString(term) = jvalue \ "term"
-        val words = AutocompleteSnippet.languages.filter(_.toLowerCase startsWith term.toLowerCase())
+        val words = Languages.l.filter(_.toLowerCase startsWith term.toLowerCase())
         words.sorted
       }
       Function("findSuggestions_callback", List("term", "callback"),
@@ -45,7 +40,7 @@ object AutocompleteSnippet {
     // If an exception is thrown during the save, the client automatically
     // gets a Failure
     def doFind(param: String): JValue = {
-      val words = AutocompleteSnippet.languages.filter(_.toLowerCase startsWith param.toLowerCase())
+      val words = Languages.l.filter(_.toLowerCase startsWith param.toLowerCase())
       words.sorted
     }
 
@@ -67,7 +62,7 @@ object AutocompleteSnippet {
     // If an exception is thrown during the save, the client automatically
     // gets a Failure
     def doFind(param: String): JValue =
-      languages.filter(_.toLowerCase startsWith param.toLowerCase()).sorted
+      Languages.l.filter(_.toLowerCase startsWith param.toLowerCase()).sorted
 
 
     // Associate the server functions with client-side functions
