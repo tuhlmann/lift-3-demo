@@ -104,8 +104,16 @@ class Boot extends Loggable {
 
     // Add a DataProcessor
     LiftRules.dataAttributeProcessor.append {
-      case ("ad-processor", str, nodes, _) => DataAttributes.adProcessor(str, nodes)
+      case ("ad-processor", attributeStr, enclosedNodes, itsSession) =>
+           DataAttributes.adProcessor(attributeStr, enclosedNodes)
     }
+
+    // Add a DataProcessor
+    LiftRules.dataAttributeProcessor.append {
+      case ("scaladays", attributeStr, enclosedNodes, itsSession) =>
+            ("p *+" #> attributeStr).apply(enclosedNodes)
+    }
+
 
 
   }
