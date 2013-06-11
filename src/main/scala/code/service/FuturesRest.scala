@@ -10,6 +10,7 @@ import net.liftweb.http.LiftResponse
 import net.liftweb.common._
 import net.liftweb.http.rest.RestContinuation
 import net.liftweb.http.NotFoundResponse
+import net.liftweb.util.Schedule
 
 case class QueryResult(suggestion: String, link: String)
 
@@ -32,13 +33,24 @@ object FuturesRest extends RestHelper {
    */
   protected def futureToResponse2[T](in: LAFuture[T])(implicit c: T => LiftResponse): () => Box[LiftResponse] = () => {
     RestContinuation.async(reply => {
+      // Please ignore the commented lines.
+      // They were created in a hacking session with David for code going into Lift.
+      // I leave them in as a reminder.
+      // is applied only once, so if already computed doesn't do anything.
+      // Todo: create def for the error responses so its overridable
+//      Schedule.apply(() => reply.apply(NotFoundResponse("timeout")), asyncTimeout)
+//      Schedule.apply(() => in.fail(ParamFailure("timed out", Empty, Empty, 408)), asyncTimeout)
       in.onSuccess(t => reply.apply(c(t)))
       in.onFail {
+//        case ParamFailure(msg, _, _, code: Int) => // ...
+//        case ParamFailure(msg, _, _, resp: LiftResponse) => reply(resp)
         case Failure(msg, _, _) => reply.apply(NotFoundResponse(msg))
         case _                  => reply.apply(NotFoundResponse("Error"))
       }
     })
   }
+
+  def asyncTimeout = 110 seconds
 
   implicit def scalaFutureToLaFuture[T](scf: Future[T])(implicit m: Manifest[T]): LAFuture[T] = {
     val laf = new LAFuture[T]
