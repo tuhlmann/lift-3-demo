@@ -24,7 +24,7 @@
         $( "#typeahead_rt" ).typeahead({
           minLength: 2,
           source: function( query, process ) {
-            findSuggestions_typeahead.find(query).then(process);
+            findSuggestions_typeahead.find({q: query}).then(process);
           }
         });
 

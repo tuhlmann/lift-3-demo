@@ -61,8 +61,12 @@ object AutocompleteSnippet {
   def typeAheadRoundTrip(in: NodeSeq): NodeSeq = {
     // If an exception is thrown during the save, the client automatically
     // gets a Failure
-    def doFind(param: String): JValue =
-      Languages.l.filter(_.toLowerCase startsWith param.toLowerCase()).sorted
+    def doFind(param: JValue): JValue = {
+      val queryOpt = (for { JString(query) <- (param \ "q") } yield query).headOption
+      for (query <- queryOpt) yield {
+        Languages.l.filter(_.toLowerCase startsWith query.toLowerCase()).sorted
+      }
+    }
 
 
     // Associate the server functions with client-side functions
