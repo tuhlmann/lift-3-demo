@@ -22,7 +22,7 @@ object ErrorHandler extends Factory with Loggable {
           List("Content-Type" -> "text/html; charset=utf-8"),
           Nil,
           500,
-          S.ieMode
+          S.legacyIeCompatibilityMode
         )
       case (_, r, e) =>
         logException(r, e)
