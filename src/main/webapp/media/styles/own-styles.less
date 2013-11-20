@@ -14,3 +14,35 @@
 .typeahead {
   text-align: left;
 }
+
+// add classes to roughly mimic v2
+.form-horizontal {
+  .form-actions {
+    .make-row();
+    margin-top: 20px;
+    padding: 10px;
+
+    .actions {
+      .make-lg-column(8);
+      .make-lg-column-offset(2);
+    }
+  }
+
+  .form-group {
+    .make-row();
+    margin-top: 15px;
+
+    .control-label {
+      .make-lg-column(2);
+    }
+
+    .controls {
+      .make-lg-column(8);
+    }
+
+    .controls-offset {
+      .make-lg-column(8);
+      .make-lg-column-offset(2);
+    }
+  }
+}

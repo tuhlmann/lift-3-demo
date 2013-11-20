@@ -3,9 +3,11 @@
   <wizard:wizard_top> <div> <wizard:bind/> </div> </wizard:wizard_top>
   <wizard:screen_top> <div> <wizard:bind/> </div> </wizard:screen_top>
   <!-- <wizard:errors> <div> <ul> <wizard:item> <li> <wizard:bind/> </li> </wizard:item> </ul> </div> </wizard:errors> -->
+  <div class="row">
+  <div class="col-md-12">
   <fieldset>
     <wizard:fields>
-      <div class="control-group" lift:bind="wizard:line">
+      <div class="form-group" lift:bind="wizard:line">
         <wizard:label><label class="control-label" wizard:for=""><wizard:bind></wizard:bind></label></wizard:label>
         <div class="controls">
           <wizard:form></wizard:form>
@@ -23,6 +25,8 @@
       </div>
     </wizard:fields>
   </fieldset>
+  </div>
+  </div>
   <div class="form-actions">
     <wizard:prev></wizard:prev>
     <wizard:next></wizard:next>

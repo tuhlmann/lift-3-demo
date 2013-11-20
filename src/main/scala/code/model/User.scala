@@ -28,6 +28,7 @@ import net.liftmodules.mapperauth.MapperAuth
 import net.liftweb.mapper.Mapper
 import net.liftmodules.mapperauth.model.LoginToken
 import net.liftmodules.mapperauth.model.ExtSession
+import scala.xml.UnprefixedAttribute
 
 
 /**
@@ -48,10 +49,14 @@ class User private () extends ProtoAuthUser[User] {
   object locale extends MappedLocale(this) {
     override def displayName = "Locale"
     override def defaultValue = "en_US"
+
+    override def toFormAppendedAttributes = new UnprefixedAttribute("class", "form-control", super.toFormAppendedAttributes)
   }
+
   object timezone extends MappedTimeZone(this) {
     override def displayName = "Time Zone"
     override def defaultValue = "America/Chicago"
+    override def toFormAppendedAttributes = new UnprefixedAttribute("class", "form-control", super.toFormAppendedAttributes)
   }
 
   object name extends MappedString(this, 64) {
@@ -60,13 +65,19 @@ class User private () extends ProtoAuthUser[User] {
     override def validations =
       valMaxLen(64, "Name must be 64 characters or less") _ ::
       super.validations
+
+    override def toFormAppendedAttributes = new UnprefixedAttribute("class", "form-control", super.toFormAppendedAttributes)
   }
+
   object location extends MappedString(this, 64) {
     override def displayName = "Location"
 
     override def validations =
       valMaxLen(64, "Location must be 64 characters or less") _ ::
       super.validations
+
+    override def toFormAppendedAttributes = new UnprefixedAttribute("class", "form-control", super.toFormAppendedAttributes)
+
   }
   object bio extends MappedTextarea(this, 160) {
     override def displayName = "Bio"
@@ -74,6 +85,8 @@ class User private () extends ProtoAuthUser[User] {
     override def validations =
       valMaxLen(160, "Bio must be 160 characters or less") _ ::
       super.validations
+
+    override def toFormAppendedAttributes = new UnprefixedAttribute("class", "form-control", super.toFormAppendedAttributes)
   }
 
   /*

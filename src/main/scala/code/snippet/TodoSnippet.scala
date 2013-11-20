@@ -11,6 +11,7 @@ import code.model.Todo
 import net.liftweb.json.Extraction.decompose
 import net.liftweb.json.DefaultFormats
 import code.model.User
+import net.liftweb.http.js.JE._
 
 
 object TodoSnippet {
@@ -50,9 +51,8 @@ object TodoSnippet {
 
       // Associate the server functions with client-side functions
       for (sess <- S.session) {
-        val script = JsCrVar("backend", sess.buildRoundtrip(List[RoundTripInfo](
-          "load" -> doLoad _, "save" -> doSave _, "remove" -> doRemove _)))
-
+        val script = SetExp(JsVar("window", "backend"), sess.buildRoundtrip(List[RoundTripInfo](
+            "load" -> doLoad _, "save" -> doSave _, "remove" -> doRemove _)))
         S.appendGlobalJs(script)
       }
 

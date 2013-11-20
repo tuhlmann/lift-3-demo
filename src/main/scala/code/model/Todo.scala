@@ -7,6 +7,7 @@ import net.liftweb.mapper._
 import net.liftweb.json.JsonAST._
 import net.liftweb.json.JsonAST.JField
 import net.liftweb.json.JsonAST.JObject
+import scala.xml.UnprefixedAttribute
 
 trait JsonConverter[OwnerType <: Mapper[OwnerType] with IdPK] extends MetaMapper[OwnerType] {
   self: OwnerType =>
@@ -75,21 +76,25 @@ class Todo private() extends LongKeyedMapper[Todo] with IdPK with UserId[Todo] w
   object text extends MappedString(this, 1000) {
     override def validations = valMinLen(1, "Text empty.") _ :: super.validations
     override def displayName = "Text"
+    override def toFormAppendedAttributes = new UnprefixedAttribute("class", "form-control", super.toFormAppendedAttributes)
   }
 
   object priority extends MappedInt(this) {
     override def defaultValue = 1
     override def displayName = "Priority"
+    override def toFormAppendedAttributes = new UnprefixedAttribute("class", "form-control", super.toFormAppendedAttributes)
   }
 
   object dueDate extends MappedDateTime(this) {
     override def defaultValue = 1.day later
     override def displayName = "Due"
+    override def toFormAppendedAttributes = new UnprefixedAttribute("class", "form-control", super.toFormAppendedAttributes)
   }
 
   object done extends MappedBoolean(this) {
     override def defaultValue = false
     override def displayName = "Done ?"
+    override def toFormAppendedAttributes = new UnprefixedAttribute("class", "form-control", super.toFormAppendedAttributes)
   }
 
 //  override def save =  {

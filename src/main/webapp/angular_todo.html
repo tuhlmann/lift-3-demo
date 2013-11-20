@@ -30,32 +30,32 @@
 
       <div lift="TodoSnippet"></div>
 
-      <div class="row-fluid">
-        <div class="span8 offset2">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
           <div ng-controller="ListCtrl">
             <h3>ToDo ({{numTotal()}} total, {{numOpen()}} open)</h3>
 
             <div name="add-todo-block" toggle style="display: none">
               <form class="form-horizontal">
-                <div class="control-group">
+                <div class="form-group">
                   <label class="control-label">Todo</label>
                   <div class="controls">
-                    <input type="text" ng-model="item.text" placeholder="Todo">
+                    <input type="text" class="form-control" ng-model="item.text" placeholder="Todo">
                   </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                   <div class="controls">
                     <button type="submit" class="btn btn-primary" ng-click="save()">Save</button>
-                    <button type="button" ng-click="toggle()" class="btn">Cancel</button>
+                    <button type="button" ng-click="toggle()" class="btn btn-default">Cancel</button>
                   </div>
                 </div>
               </form>
             </div>
             <table class="table table-striped table-condensed table-hover">
               <thead>
-                <th class="span5">Todo</th>
-                <th class="span1">Priority</th>
-                <th class="span2">Due</th>
+                <th class="col-md-5">Todo</th>
+                <th class="col-md-1">Priority</th>
+                <th class="col-md-2">Due</th>
               </thead>
               <tbody>
                 <tr id="item_{{todo.id}}" ng-repeat="todo in todos" ui-animate>
@@ -65,14 +65,14 @@
                   <td><span class="done-{{todo.done}}">{{todo.priority}}</span></td>
                   <td><span class="done-{{todo.done}}">{{todo.dueDate | date:mediumDate}}</span></td>
                   <td>
-                    <a class="btn btn-mini" ng-click="editItem()"><i class="done-{{todo.done}} icon-edit"></i></a>
-                    <a class="btn btn-mini" ng-click="openRemoveConfirm()"><i class="done-{{todo.done}} icon-remove"></i></a>
+                    <a class="btn btn-default btn-xs" ng-click="editItem()"><i class="done-{{todo.done}} icon-edit"></i></a>
+                    <a class="btn btn-default btn-xs" ng-click="openRemoveConfirm()"><i class="done-{{todo.done}} icon-remove"></i></a>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <button class="btn" ng-click="fetch()">Fetch</button>
-            <button class="btn" ng-click="addItem()">Add</button>
+            <button class="btn btn-default" ng-click="fetch()">Fetch</button>
+            <button class="btn btn-default" ng-click="addItem()">Add</button>
 
             <div modal="shouldBeOpen" close="closeModal()" options="opts">
               <div class="modal-header">
@@ -82,8 +82,8 @@
                 <p>Are you sure you want to delete the item "{{todo.text}}"?</p>
               </div>
               <div class="modal-footer">
-                <button class="btn cancel" ng-click="closeModal()">Cancel</button>
-                <button class="btn btn-warning ok" ng-click="removeItem()">Delete!</button>
+                <button class="btn btn-default cancel" ng-click="closeModal()">Cancel</button>
+                <button class="btn btn-danger ok" ng-click="removeItem()">Delete!</button>
               </div>
             </div>
 

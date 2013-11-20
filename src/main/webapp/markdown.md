@@ -18,8 +18,8 @@ blocks on the page like this hero-unit
   <form lift="form.ajax">
     <div lift="Markdown.parse">
       <h4>Say something in Markdown:</h4>
-      <textarea name="markdown-text" style="width: 100%;" rows="5" cols="30"></textarea>
-      <button class="btn" name="submit">Submit</button>
+      <textarea class="form-control" name="markdown-text" style="width: 100%;" rows="5" cols="30"></textarea>
+      <button style="margin-top:10px;" class="btn btn-default" name="submit">Submit</button>
     </div>
   </form>
 

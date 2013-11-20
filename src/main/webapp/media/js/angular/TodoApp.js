@@ -30,12 +30,12 @@ TodoApp.directive('ngConfirm', function(PopupService) {
 });
 
 
-var ListCtrl = ['$scope', '$location', function($scope, $location) {
+TodoApp.controller('ListCtrl', ['$scope', '$location', function($scope, $location) {
 
   $scope.todos = {};
 
   $scope.fetch = function(item) {
-    backend.load(item).then(function(data) {
+    window.backend.load(item).then(function(data) {
       $scope.$apply(function() {
         if (data !== undefined) {
           $scope.todos = data;
@@ -48,7 +48,7 @@ var ListCtrl = ['$scope', '$location', function($scope, $location) {
 
   $scope.save  = function () {
     $scope.item.done = false;
-    backend.save($scope.item).then(function(item) {
+    window.backend.save($scope.item).then(function(item) {
       $scope.$apply(function() {
         if (_.find($scope.todos, function(todo){return todo.id == item.id}) !== undefined) {
           $scope.todos = _.map($scope.todos, function(todo){
@@ -65,7 +65,7 @@ var ListCtrl = ['$scope', '$location', function($scope, $location) {
 
   $scope.removeItem = function () {
     var itemId = $scope.todo.id;
-    backend.remove({id : itemId}).then(function() {
+    window.backend.remove({id : itemId}).then(function() {
       $scope.$apply(function() {
         $("#item_" + itemId).fadeOut();
         $scope.todos = _.filter($scope.todos, function(todo){ return todo.id != itemId; });
@@ -105,18 +105,16 @@ var ListCtrl = ['$scope', '$location', function($scope, $location) {
   $scope.addItem = function() {
     $scope.item = {};
     $scope.toggle();
-  }
+  };
 
   $scope.editItem = function() {
     var itemId = this.todo.id;
     // clone the object
     $scope.item = jQuery.extend(true, {}, _.find($scope.todos, function(todo){ return todo.id == itemId; }));
     $scope.toggle();
-  }
+  };
 
   $scope.fetch();
-
-
-}];
+}]);
 
 

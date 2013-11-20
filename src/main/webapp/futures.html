@@ -25,10 +25,16 @@
       <div class="inner" style="text-align: center">
         <h2>Wikipedia Suggestions</h2>
         <form class="input-append" ng-submit="getSuggestions()">
-          <input ng-model="wpQuery" type="text" class="search-box" style="width: 40%;">
-          <button class="btn btn-primary search-box">
-            &nbsp;<i class="icon-search icon-white icon-large"></i>&nbsp;
-          </button>
+          <div class="row search-box">
+            <div class="col-md-6 col-md-offset-3">
+              <div class="input-group">
+                <input ng-model="wpQuery" type="text" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button"><i class="icon-search icon-large"></i></button>
+                </span>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>

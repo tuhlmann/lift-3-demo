@@ -21,12 +21,12 @@
           }
         });
 
-        $( "#typeahead_rt" ).typeahead({
-          minLength: 2,
-          source: function( query, process ) {
-            findSuggestions_typeahead.find({q: query}).then(process);
-          }
-        });
+        // $( "#typeahead_rt" ).typeahead({
+          // minLength: 2,
+          // source: function( query, process ) {
+            // findSuggestions_typeahead.find({q: query}).then(process);
+          // }
+        // });
 
       });
     </script>
@@ -39,7 +39,7 @@
       <ul class="nav nav-pills">
         <li class="active"><a href="#pane-jquery" data-toggle="tab">Standard Autocomplete</a></li>
         <li><a href="#pane-promises" data-toggle="tab">Roundtrip Promise</a></li>
-        <li><a href="#pane-typeahead" data-toggle="tab">Typeahead</a></li>
+        <!--<li><a href="#pane-typeahead" data-toggle="tab">Typeahead</a></li>-->
       </ul>
 
       <div class="tab-content">
@@ -50,10 +50,18 @@
             <div class="inner" style="text-align: center">
               <h2>jQuery Callback Autocomplete</h2>
               <form class="input-append" style="width:100%">
-                <input id="query_cb" type="text" class="search-box" style="width: 40%;">
-                <button type="submit" class="btn btn-primary search-box" id="search-btn">
-                  &nbsp;<i class="icon-search icon-white icon-large"></i>&nbsp;
-                </button>
+                <div class="row search-box">
+                  <div class="col-md-6 col-md-offset-3">
+                    <div class="input-group">
+                      <input id="query_cb" type="text" class="form-control">
+                      <span class="input-group-btn">
+                        <button id="search-btn" class="btn btn-primary" type="submit">
+                          <i class="icon-search icon-large"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -65,29 +73,47 @@
             <div class="inner" style="text-align: center">
               <h2>jQuery Roundtrip Autocomplete</h2>
               <form class="input-append" style="width:100%">
-                <input id="query_rt" type="text" class="search-box" style="width: 40%;">
-                <button type="submit" class="btn btn-primary search-box" id="search-btn">
-                  &nbsp;<i class="icon-search icon-white icon-large"></i>&nbsp;
-                </button>
+                <div class="row search-box">
+                  <div class="col-md-6 col-md-offset-3">
+                    <div class="input-group">
+                      <input id="query_rt" type="text" class="form-control">
+                      <span class="input-group-btn">
+                        <button id="search-btn" class="btn btn-primary" type="submit">
+                          <i class="icon-search icon-large"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
         </div>
 
+<!--
         <div class="tab-pane" id="pane-typeahead">
-          <!-- Bootstrap Typeahead with Lift 3 roundtrip -->
+          <! -- Bootstrap Typeahead with Lift 3 roundtrip -- >
           <div class="hero-unit" lift="AutocompleteSnippet.typeAheadRoundTrip">
             <div class="inner" style="text-align: center">
               <h2>Bootstrap Typeahead Roundtrip Autocomplete</h2>
               <form class="input-append" style="width:100%">
-                <input id="typeahead_rt" type="text" class="search-box" style="width: 40%;">
-                <button type="submit" class="btn btn-primary search-box" id="search-btn">
-                  &nbsp;<i class="icon-search icon-white icon-large"></i>&nbsp;
-                </button>
+                <div class="row search-box">
+                  <div class="col-md-6 col-md-offset-3">
+                    <div class="input-group">
+                      <input id="typeahead_rt" type="text" class="form-control">
+                      <span class="input-group-btn">
+                        <button id="search-btn" class="btn btn-primary" type="submit">
+                          <i class="icon-search icon-large"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
         </div>
+-->
 
       </div>
     </div>
