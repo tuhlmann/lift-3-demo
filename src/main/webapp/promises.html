@@ -28,6 +28,14 @@
           // }
         // });
 
+        $('#streaming-search-btn').click(function(){
+          var query = $('#query_streaming').val();
+          $('#streaming-search-result').html('');
+          streamingPromise.find(query).then(function(response){
+            $('#streaming-search-result').append('<li>'+response+'</li>');
+          });
+        });
+
       });
     </script>
 
@@ -39,7 +47,7 @@
       <ul class="nav nav-pills">
         <li class="active"><a href="#pane-jquery" data-toggle="tab">Standard Autocomplete</a></li>
         <li><a href="#pane-promises" data-toggle="tab">Roundtrip Promise</a></li>
-        <!--<li><a href="#pane-typeahead" data-toggle="tab">Typeahead</a></li>-->
+        <li><a href="#pane-streaming-promises" data-toggle="tab">Streaming Promises</a></li>
       </ul>
 
       <div class="tab-content">
@@ -55,7 +63,7 @@
                     <div class="input-group">
                       <input id="query_cb" type="text" class="form-control">
                       <span class="input-group-btn">
-                        <button id="search-btn" class="btn btn-primary" type="submit">
+                        <button id="cb-search-btn" class="btn btn-primary" type="submit">
                           <i class="icon-search icon-large"></i>
                         </button>
                       </span>
@@ -78,7 +86,7 @@
                     <div class="input-group">
                       <input id="query_rt" type="text" class="form-control">
                       <span class="input-group-btn">
-                        <button id="search-btn" class="btn btn-primary" type="submit">
+                        <button id="rt-search-btn" class="btn btn-primary" type="submit">
                           <i class="icon-search icon-large"></i>
                         </button>
                       </span>
@@ -90,6 +98,33 @@
           </div>
         </div>
 
+        <div class="tab-pane" id="pane-streaming-promises">
+          <div class="hero-unit" lift="StreamingPromise">
+            <div class="inner" style="text-align: center">
+              <h2>Something that streams</h2>
+              <div class="input-append" style="width:100%">
+                <div class="row search-box">
+                  <div class="col-md-6 col-md-offset-3">
+                    <div class="input-group">
+                      <input id="query_streaming" type="text" class="form-control">
+                      <span class="input-group-btn">
+                        <button id="streaming-search-btn" class="btn btn-primary" type="button">
+                          <i class="icon-search icon-large"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:30px;">
+              <h4>Streaming promise result appears here</h4>
+              <ul id="streaming-search-result">
+
+              </li>
+            </div>
+          </div>
+        </div>
 <!--
         <div class="tab-pane" id="pane-typeahead">
           <! -- Bootstrap Typeahead with Lift 3 roundtrip -- >

@@ -1,4 +1,4 @@
-var TodoApp = angular.module("TodoApp", ["ngResource", "ui", "ui.bootstrap"]);
+var TodoApp = angular.module("TodoApp", ["ngResource", "ui.bootstrap"]);
 
 // TodoApp.factory('Todo', function($resource) {
   // return $resource('/api/todo/:id', { id : '@id' }, { create : { method : 'PUT' } });
@@ -33,6 +33,8 @@ TodoApp.directive('ngConfirm', function(PopupService) {
 TodoApp.controller('ListCtrl', ['$scope', '$location', function($scope, $location) {
 
   $scope.todos = {};
+  $scope.chosenTodo = {};
+  $scope.showDeleteConfirm = false;
 
   $scope.fetch = function(item) {
     window.backend.load(item).then(function(data) {
@@ -64,14 +66,14 @@ TodoApp.controller('ListCtrl', ['$scope', '$location', function($scope, $locatio
   };
 
   $scope.removeItem = function () {
-    var itemId = $scope.todo.id;
+    var itemId = $scope.chosenTodo.id;
     window.backend.remove({id : itemId}).then(function() {
       $scope.$apply(function() {
         $("#item_" + itemId).fadeOut();
         $scope.todos = _.filter($scope.todos, function(todo){ return todo.id != itemId; });
       });
     });
-    $scope.closeModal();
+    $scope.closeRemoveConfirm();
   };
 
   $scope.numTotal = function() {
@@ -79,23 +81,18 @@ TodoApp.controller('ListCtrl', ['$scope', '$location', function($scope, $locatio
   };
 
   $scope.numOpen = function() {
-    return _.filter($scope.todos, function(todo) {return !todo.done}).length
+    return _.filter($scope.todos, function(todo) {return !todo.done;}).length;
   };
 
   $scope.openRemoveConfirm = function() {
-    $scope.todo = this.todo;
-    $scope.shouldBeOpen = true;
+    $scope.chosenTodo = this.todo;
+    $scope.showDeleteConfirm = true;
   };
 
-  $scope.closeModal = function () {
-    $scope.todo = undefined;
+  $scope.closeRemoveConfirm = function () {
+    $scope.chosenTodo = {};
     $scope.closeMsg = 'I was closed at: ' + new Date();
-    $scope.shouldBeOpen = false;
-  };
-
-  $scope.opts = {
-    backdropFade: true,
-    dialogFade:true
+    $scope.showDeleteConfirm = false;
   };
 
   $scope.toggle = function() {
