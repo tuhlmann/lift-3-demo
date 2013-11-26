@@ -22,7 +22,7 @@ resolvers ++= Seq(
     "org.eclipse.jetty"       %  "jetty-webapp"      % "8.1.7.v20120910"       %  "container,compile",
     "org.eclipse.jetty.orbit" %  "javax.servlet"     % "3.0.0.v201112011016"   %  "container,compile" artifacts Artifact("javax.servlet", "jar", "jar"),
     "net.liftmodules"         %% "mapperauth_2.6"    % "0.2-SNAPSHOT"          %  "compile" intransitive(),
-    "net.liftmodules"         %% "extras_2.5"        % "0.1"                   %  "compile" intransitive(),
+    "net.liftmodules"         %% "extras_2.5"        % "0.3"                   %  "compile" intransitive(),
     "com.h2database"          %  "h2"                % "1.2.138",
     "net.databinder.dispatch" %% "dispatch-core"     % "0.10.0"
   )
