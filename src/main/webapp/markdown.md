@@ -46,7 +46,7 @@ Lift's Markdown supports all the usual suspects, like
 
 * Autocomplete, the old way
 * Autocomplete, Lift Roundtrip
-* Typeahead, Lift Roundtrip
+* A Streaming Promise Example
 
 ### AngularJS
 

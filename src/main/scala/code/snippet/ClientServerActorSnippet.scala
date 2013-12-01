@@ -49,9 +49,9 @@ class ClientServerActorSnippet extends SnippetHelper {
         override def lowPriority = {
 
           case JString(str) =>
-            ClientServerActor ! ChatMessage(user.username.is, str)
+            ClientServerActor ! ChatMessage(user.username.get, str)
 
-          case msg @ ChatMessage(from, _) if from != user.username.is =>
+          case msg @ ChatMessage(from, _) if from != user.username.get =>
             clientProxy ! JArray(List(decompose(msg)))
 
           case AllMessages(msgs) => clientProxy ! decompose(msgs)

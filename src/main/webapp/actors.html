@@ -11,12 +11,28 @@
 
     <div ng-controller="ActorsCtrl">
 
-    <form class="form-inline input-append" ng-submit="blabber()">
-      <label><strong>Say Something:&nbsp;</strong></label>
-      <input ng-model="whatISaid" type="text" class="input-xlarge form-control">
-      <button class="btn btn-primary">
-        &nbsp;<i class="icon-ok icon-white icon-large"></i>&nbsp;
-      </button>
+    <form class="form-inline" ng-submit="blabber()">
+
+      <div class="input-append" style="width:100%">
+        <div class="row">
+          <div class="form-group">
+            <div class="col-md-3">
+              <label><strong>Say Something:&nbsp;</strong></label>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <input ng-model="whatISaid" type="text" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary">
+                    &nbsp;<i class="icon-ok icon-white icon-large"></i>&nbsp;
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </form>
 
     <h4 style="margin-bottom: 10px;">Messages:</h4>

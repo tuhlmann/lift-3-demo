@@ -1,7 +1,7 @@
 Twitter Bootstrap
 -----------------
 
-Bootstrap v2.2.2 is included.
+Bootstrap v3.0 is included.
 
 Database
 --------
@@ -12,7 +12,7 @@ PostgreSQL and many others. See config.MapperConfig for more info.
 Building
 --------
 
-This app requires sbt 0.12. To build for the first time, run:
+This app requires sbt 0.13. To build for the first time, run:
 
     bash$ sbt
     > ~;container:start; container:reload /
