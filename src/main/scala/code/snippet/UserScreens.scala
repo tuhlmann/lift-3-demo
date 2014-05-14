@@ -75,12 +75,12 @@ object ProfileScreen extends BaseCurrentUserScreen {
   def gravatarHtml =
     <span>
       <div class="gravatar">
-        {Gravatar.imgTag(userVar.is.email.is, 60)}
+        {Gravatar.imgTag(userVar.is.email.get, 60)}
       </div>
       <div class="gravatar">
         <h4>Change your avatar at <a href="http://gravatar.com" target="_blank">Gravatar.com</a></h4>
         <p>
-          We're using {userVar.is.email.is}. It may take time for changes made on gravatar.com to appear on our site.
+          We're using {userVar.is.email.get}. It may take time for changes made on gravatar.com to appear on our site.
         </p>
       </div>
     </span>
@@ -122,7 +122,7 @@ object RegisterScreen extends BaseRegisterScreen with BasePasswordScreen {
     //user.password.hashIt
     user.save
     User.logUserIn(user, true)
-    if (rememberMe) User.createExtSession(user.id.is.toString)
+    if (rememberMe) User.createExtSession(user.id.get.toString)
     S.notice("Thanks for signing up!")
   }
 }

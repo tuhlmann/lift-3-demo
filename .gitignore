@@ -1,1 +1,6 @@
 lift_proto.db.trace.db
+/target/
+*.db.h2.db
+/.cache
+/.classpath
+/.project

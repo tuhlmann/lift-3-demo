@@ -24,7 +24,7 @@ trait JsonConverter[OwnerType <: Mapper[OwnerType] with IdPK] extends MetaMapper
   def apply(json: JValue): Box[OwnerType] = json match {
     case JObject(j) =>
       val obj = tryo { decodeFromJSON_!(j, false) }
-      obj.flatMap(o => if (o.id.is > 0) findById(o.id.is).map(db => copyChanges(db, o)) else Full(o))
+      obj.flatMap(o => if (o.id.get > 0) findById(o.id.get).map(db => copyChanges(db, o)) else Full(o))
     case _ => Empty
   }
 
@@ -37,12 +37,12 @@ object Todo extends Todo with LongKeyedMetaMapper[Todo] with JsonConverter[Todo]
   def findById(id: Long): Box[Todo] = Todo.find(id)
 
   def copyChanges(orig: Todo, neo: Todo): Todo = {
-    orig.text(neo.text.is).priority(neo.priority.is).done(neo.done.is)
+    orig.text(neo.text.get).priority(neo.priority.get).done(neo.done.get)
   }
 
   def findAllByUser(): List[JValue] = {
     val re = ((for (user <- User.currentUser) yield {
-      findAll(By(Todo.userId, user.id.is))
+      findAll(By(Todo.userId, user.id.get))
     }) openOr Nil) or {
       val re = Todo.create.text("My First Todo") :: Nil
       re

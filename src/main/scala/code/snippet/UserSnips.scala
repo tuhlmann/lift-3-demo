@@ -44,24 +44,24 @@ sealed trait UserSnippet extends SnippetHelper with Loggable {
     val size = S.attr("size").map(toInt) openOr Gravatar.defaultSize.vend
 
     serve { user =>
-      Gravatar.imgTag(user.email.is, size)
+      Gravatar.imgTag(user.email.get, size)
     }
   }
 
   def username(xhtml: NodeSeq): NodeSeq = serve { user =>
-    Text(user.username.is)
+    Text(user.username.get)
   }
 
   def name(xhtml: NodeSeq): NodeSeq = serve { user =>
-    if (user.name.is.length > 0)
-      Text("%s (%s)".format(user.name.is, user.username.is))
+    if (user.name.get.length > 0)
+      Text("%s (%s)".format(user.name.get, user.username.get))
     else
-      Text(user.username.is)
+      Text(user.username.get)
   }
 
   def title(xhtml: NodeSeq): NodeSeq = serve { user =>
     <lift:head>
-      <title lift="Menu.title">{"Lift Bootstrap Master: %*% - "+user.username.is}</title>
+      <title lift="Menu.title">{"Lift Bootstrap Master: %*% - "+user.username.get}</title>
     </lift:head>
   }
 }
@@ -80,16 +80,16 @@ object ProfileLocUser extends UserSnippet {
 
   def profile(html: NodeSeq): NodeSeq = serve(html) { user =>
     val editLink: NodeSeq =
-      if (User.currentUser.filter(_.id.is == user.id.is).isDefined)
+      if (User.currentUser.filter(_.id.get == user.id.get).isDefined)
         <a href={Site.editProfile.url} class="btn btn-info"><i class="icon-edit icon-white"></i> Edit Your Profile</a>
       else
         NodeSeq.Empty
 
-    "#id_avatar *" #> Gravatar.imgTag(user.email.is) &
-    "#id_name *" #> <h3>{user.name.is}</h3> &
-    "#id_location *" #> user.location.is &
+    "#id_avatar *" #> Gravatar.imgTag(user.email.get) &
+    "#id_name *" #> <h3>{user.name.get}</h3> &
+    "#id_location *" #> user.location.get &
     "#id_whencreated" #> df.format(user.whenCreated.toDate).toString &
-    "#id_bio *" #> user.bio.is &
+    "#id_bio *" #> user.bio.get &
     "#id_editlink *" #> editLink
   }
 }
@@ -118,7 +118,7 @@ object UserLogin extends Loggable {
             case Full(user) if (user.password.match_?(password)) =>
               logger.debug("pwd matched")
               User.logUserIn(user, true)
-              if (remember) User.createExtSession(user.id.is.toString)
+              if (remember) User.createExtSession(user.id.get.toString)
               else ExtSession.deleteExtCookie()
               RedirectTo(LoginRedirect.openOr(Site.home.url))
             case _ =>

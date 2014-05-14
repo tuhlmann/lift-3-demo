@@ -34,7 +34,7 @@ object TodoSnippet {
         println("doSave Called: "+item)
         (for { todo <- Todo(item) } yield {
           println("Saving this item: "+todo)
-          todo.userId(user.id.is).saveMe
+          todo.userId(user.id.get).saveMe
           val re = Todo.toJson(todo)
           println("The result we return: "+re)
           re
@@ -45,7 +45,7 @@ object TodoSnippet {
         println("doRemove: "+item)
         Todo(item).flatMap{ todo =>
           println("item to remove: "+todo)
-          Todo.delete(todo.id).map(Todo.toJson)
+          Todo.delete(todo.id.get).map(Todo.toJson)
         } openOr JNull
       }
 

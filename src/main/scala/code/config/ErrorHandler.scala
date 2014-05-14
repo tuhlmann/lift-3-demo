@@ -38,7 +38,7 @@ object ErrorHandler extends Factory with Loggable {
     val srvr = InetAddress.getLocalHost.getHostName
 
     MDC.put(("UserId", User.currentUserId openOr "GUEST"))
-    MDC.put(("Username", User.currentUser.map(_.username.is) openOr "GUEST"))
+    MDC.put(("Username", User.currentUser.map(_.username.get) openOr "GUEST"))
     MDC.put(("User Agent", r.userAgent openOr "UNKNOWN"))
     MDC.put(("Server", srvr))
     logger.error("Exception occurred while processing %s".format(r.uri), e)

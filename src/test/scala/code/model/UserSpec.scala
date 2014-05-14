@@ -44,9 +44,9 @@ class UserSpec extends BaseSpec with BeforeAndAfterAll {
       newUser.save
 
       // retrieve from db and compare
-      val userFromDb = User.find(newUser.id.is)
+      val userFromDb = User.find(newUser.id.get)
       userFromDb.isDefined should equal(true)
-      userFromDb.map(u => u.id.is should equal(newUser.id.is))
+      userFromDb.map(u => u.id.get should equal(newUser.id.get))
     }
 
     "Support password properly" in {
@@ -65,11 +65,11 @@ class UserSpec extends BaseSpec with BeforeAndAfterAll {
       newUser.save
 
       // retrieve from db and compare
-      val userFromDb = User.find(newUser.id.is)
+      val userFromDb = User.find(newUser.id.get)
 
       userFromDb.isDefined should equal(true)
       userFromDb.map(u => {
-        u.id.is should equal(newUser.id.is)
+        u.id.get should equal(newUser.id.get)
         u.password.match_?("xxxxx") should equal(false)
         u.password.match_?(userPass) should equal(true)
       })
@@ -94,10 +94,10 @@ class UserSpec extends BaseSpec with BeforeAndAfterAll {
 
       newUser.userRoles.addRole(myRoleName).saveMe
 
-      Permission.createUserPermission(newUser.id.is, APermission("laundry")).saveMe
+      Permission.createUserPermission(newUser.id.get, APermission("laundry")).saveMe
 
       // retrieve from db and compare
-      val userFromDb = User.find(newUser.id.is)
+      val userFromDb = User.find(newUser.id.get)
 
       userFromDb.isDefined should equal(true)
       userFromDb.map(u => {
@@ -110,7 +110,7 @@ class UserSpec extends BaseSpec with BeforeAndAfterAll {
         //println("XX Laundry: "+User.hasPermission(u, APermission("laundry")))
         User.hasPermission(u, APermission("laundry")) should be(true)
 
-        u.id.is should equal(newUser.id.is)
+        u.id.get should equal(newUser.id.get)
         u.password.match_?("xxxxx") should equal(false)
         u.password.match_?(userPass) should equal(true)
       })

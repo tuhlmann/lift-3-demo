@@ -40,8 +40,8 @@ class Boot extends Loggable {
     MapperAuth.authUserMeta.default.set(User)
     MapperAuth.loginTokenAfterUrl.default.set(Site.password.url)
     MapperAuth.siteName.default.set("AGYNAMIX Template")
-    MapperAuth.systemEmail.default.set(SystemUser.user.email.is)
-    MapperAuth.systemUsername.default.set(SystemUser.user.name.is)
+    MapperAuth.systemEmail.default.set(SystemUser.user.email.get)
+    MapperAuth.systemUsername.default.set(SystemUser.user.name.get)
 
     // For S.loggedIn_? and TestCond.loggedIn/Out builtin snippet
     LiftRules.loggedInTest = Full(() => User.isLoggedIn)

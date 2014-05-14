@@ -27,7 +27,7 @@ object TodoApi extends RestHelper with Loggable {
       item.save;
       Todo.toJson(item)
 
-    case Todo(item) :: Nil JsonDelete _ => Todo.delete(item.id).map(Todo.toJson)
+    case Todo(item) :: Nil JsonDelete _ => Todo.delete(item.id.get).map(Todo.toJson)
 
   })
 

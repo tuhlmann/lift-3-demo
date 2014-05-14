@@ -104,7 +104,7 @@ class User private () extends ProtoAuthUser[User] {
     def allFields = List(username, email)
   }
 
-  def whenCreated: DateTime = new DateTime(createdAt.is)
+  def whenCreated: DateTime = new DateTime(createdAt.get)
 
 //  override def authRoles: Set[String] = {
 //    userRoles.names.toSet
@@ -117,7 +117,7 @@ object User extends User with ProtoAuthUserMeta[User] with Loggable {
 
   val DEFAULT_ID = -1l
 
-  def currentUserIdOrDefault = User.currentUser.map(_.id.is).openOr(DEFAULT_ID)
+  def currentUserIdOrDefault = User.currentUser.map(_.id.get).openOr(DEFAULT_ID)
 
   override def dbTableName = "users"
 
@@ -163,7 +163,7 @@ object User extends User with ProtoAuthUserMeta[User] with Loggable {
         at.delete_!
         RedirectWithState(indexUrl, RedirectState(() => { S.error("Login token has expired") }))
       }
-      case Full(at) => find(at.userId.is).map(user => {
+      case Full(at) => find(at.userId.get).map(user => {
         if (user.validate.length == 0) {
           user.verified(true)
           user.save
@@ -187,7 +187,7 @@ object User extends User with ProtoAuthUserMeta[User] with Loggable {
   def sendLoginToken(user: User): Unit = {
     import net.liftweb.util.Mailer._
 
-    val token = LoginToken.createForUserId(user.id.is)
+    val token = LoginToken.createForUserId(user.id.get)
 
     val msgTxt =
       """
@@ -223,7 +223,7 @@ object User extends User with ProtoAuthUserMeta[User] with Loggable {
     ignoredReq => {
       if (currentUserId.isEmpty) {
         ExtSession.handleExtSession match {
-          case Full(es) => find(es.userId.is).foreach { user => logUserIn(user, false) }
+          case Full(es) => find(es.userId.get).foreach { user => logUserIn(user, false) }
           case Failure(msg, _, _) => logger.warn("Error logging user in with ExtSession: %s".format(msg))
           case Empty =>
         }

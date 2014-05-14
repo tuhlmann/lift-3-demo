@@ -31,7 +31,7 @@ object Site extends Locs {
   val logout = MenuLoc(buildLogoutMenu)
   private val profileParamMenu = Menu.param[User]("User", "Profile",
     User.findByUsername _,
-    _.username.is
+    _.username.get
   ) / "user" >> Loc.CalcValue(() => User.currentUser)
   lazy val profileLoc = profileParamMenu.toLoc
 
