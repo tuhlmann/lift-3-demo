@@ -5,7 +5,7 @@ import net.liftweb.db.DB
 import net.liftweb.db.StandardDBVendor
 import net.liftweb.util.Props
 import net.liftweb.http.LiftRules
-import net.liftweb.db.DefaultConnectionIdentifier
+import net.liftweb.util.DefaultConnectionIdentifier
 import net.liftweb.mapper.Schemifier
 import net.liftweb.http.S
 import code.model.User

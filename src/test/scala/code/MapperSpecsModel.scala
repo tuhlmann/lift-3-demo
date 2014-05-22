@@ -1,12 +1,12 @@
 package code
 
-import net.liftweb.db.ConnectionIdentifier
+import net.liftweb.util.ConnectionIdentifier
 import net.liftweb.util.StringHelpers
 import net.liftweb.mapper.MapperRules
 import net.liftweb.mapper.BaseMapper
 import java.util.Locale
 import net.liftweb.mapper.Schemifier
-import net.liftweb.db.DefaultConnectionIdentifier
+import net.liftweb.util.DefaultConnectionIdentifier
 import net.liftmodules.mapperauth.model.Permission
 import net.liftmodules.mapperauth.model.Role
 import code.model.User

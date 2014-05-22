@@ -18,14 +18,14 @@ package code
 
 import java.io.File
 import java.sql.{Connection, DriverManager}
-import net.liftweb.db.ConnectionIdentifier
+import net.liftweb.util.ConnectionIdentifier
 import net.liftweb.util.Props
 import net.liftweb.db.DB
 import net.liftweb.db.ConnectionManager
 import net.liftweb.common.Box
 import net.liftweb.common.Full
 import net.liftweb.common.Empty
-import net.liftweb.db.DefaultConnectionIdentifier
+import net.liftweb.util.DefaultConnectionIdentifier
 import net.liftweb.mapper.Schemifier
 
 
