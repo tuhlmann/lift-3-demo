@@ -17,7 +17,7 @@ object ClientServerActor extends LiftActor with ListenerManager {
     case InitMessages(who) => who ! AllMessages(messages)
     case el: ChatMessage =>
       messages = el :: messages
-      updateListeners(el)
+      sendListenersMessage(el)
   }
 
 

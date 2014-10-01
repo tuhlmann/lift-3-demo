@@ -26,6 +26,9 @@ sealed trait BaseCurrentUserScreen extends BaseScreen {
 }
 
 object AccountScreen extends BaseCurrentUserScreen {
+  
+  def formName = "accountScreen"
+  
   addFields(() => userVar.is.accountScreenFields)
 
   def finish() {
@@ -57,6 +60,7 @@ sealed trait BasePasswordScreen {
 
 
 object PasswordScreen extends BaseCurrentUserScreen with BasePasswordScreen {
+  def formName = "passwordScreen"  
   override def pwdName = "New Password"
   override def validations = passwordsMustMatch _ :: super.validations
 
@@ -72,6 +76,7 @@ object PasswordScreen extends BaseCurrentUserScreen with BasePasswordScreen {
  * Use for editing the currently logged in user only.
  */
 object ProfileScreen extends BaseCurrentUserScreen {
+  def formName = "profileScreen"
   def gravatarHtml =
     <span>
       <div class="gravatar">
@@ -106,6 +111,8 @@ trait BaseRegisterScreen extends BaseScreen {
  * Use for creating a new user.
  */
 object RegisterScreen extends BaseRegisterScreen with BasePasswordScreen {
+  def formName = "registerScreen"
+  
   override def validations = passwordsMustMatch _ :: super.validations
 
   val rememberMe = builder("", User.loginCredentials.is.isRememberMe, ("tabindex" -> "1"))

@@ -51,8 +51,9 @@ object Todo extends Todo with LongKeyedMetaMapper[Todo] with JsonConverter[Todo]
   }
 
   override def filterJson(json: JObject): JValue = {
-    json.transform {
-      case JField("$persisted", _) | JField("userId", _) | JField("createdAt", _) | JField("updatedAt", _)=> JNothing
+    val toRemove = List("$persisted", "userId", "createdAt", "updatedAt")
+    json.filterField { field =>
+      (!toRemove.exists { _ == field.name })
     }
   }
 
