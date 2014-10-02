@@ -16,6 +16,13 @@ import net.liftmodules.extras.Bootstrap3Screen
  * Base all LiftScreens off this. Currently configured to use bootstrap.
  */
 abstract class BaseScreen extends Bootstrap3Screen {
-  override def defaultToAjax_? = true  
+  override def defaultToAjax_? = true
+  
+  protected override lazy val cssClassBinding = new CssClassBinding {
+    override val label = "screen-label"
+  }
+
+  override val labelSuffix = NodeSeq.Empty
+  
 }
 

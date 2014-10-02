@@ -25,6 +25,10 @@ trait JsonConverter[OwnerType <: Mapper[OwnerType] with IdPK] extends MetaMapper
     case JObject(j) =>
       val obj = tryo { decodeFromJSON_!(j, false) }
       println("IS JObject: "+obj)
+      obj match {
+        case Failure(msg, Full(ex), _) => ex.printStackTrace() 
+        case _ =>
+      }
       obj.flatMap(o => if (o.id.get > 0) findById(o.id.get).map(db => copyChanges(db, o)) else Full(o))
     case _ => Empty
   }
