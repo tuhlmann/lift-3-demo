@@ -1,37 +1,37 @@
 <div class="form-horizontal">
-  <wizard:screen_info><div>Page <wizard:screen_number/> of <wizard:total_screens/></div></wizard:screen_info>
-  <wizard:wizard_top> <div> <wizard:bind/> </div> </wizard:wizard_top>
-  <wizard:screen_top> <div> <wizard:bind/> </div> </wizard:screen_top>
-  <!-- <wizard:errors> <div> <ul> <wizard:item> <li> <wizard:bind/> </li> </wizard:item> </ul> </div> </wizard:errors> -->
+  <div class="screenInfo">
+    Page <span class="screenNumber"></span> of <span class="totalScreens"></span>
+  </div>
+  <div class="wizardTop"></div>
+  <div class="screenTop"></div>
+  <div class="globalErrors">
+    <div class="error"></div>
+  </div>
   <div class="row">
-  <div class="col-md-12">
-  <fieldset>
-    <wizard:fields>
-      <div class="form-group" lift:bind="wizard:line">
-        <wizard:label><label class="control-label" wizard:for=""><wizard:bind></wizard:bind></label></wizard:label>
-        <div class="controls">
-          <wizard:form></wizard:form>
-          <wizard:help><span class="help-inline"><wizard:bind></wizard:bind></span></wizard:help>
-          <span class="alert-block">
-            <wizard:field_errors>
+    <div class="col-md-12">
+    <fieldset>
+      <div class="fields">
+        <div class="form-group fieldContainer">
+          <label class="control-label screen-label"></label>
+          <div class="controls">
+            <span class="value"></span>
+            <span class="help-inline help"></span>
+            <span class="alert-block errors">
               <ul>
-                <wizard:error>
-                  <li class="error"><wizard:bind></wizard:bind></li>
-                </wizard:error>
+                <li class="error"></li>
               </ul>
-            </wizard:field_errors>
-          </span>
+            </span>
+          </div>
         </div>
       </div>
-    </wizard:fields>
-  </fieldset>
-  </div>
+    </fieldset>
+    </div>
   </div>
   <div class="form-actions">
-    <wizard:prev></wizard:prev>
-    <wizard:next></wizard:next>
-    <wizard:cancel></wizard:cancel>
+    <button class="prev"></button>
+    <button class="cancel"></button>
+    <button class="next"></button>
   </div>
-  <wizard:screen_bottom><div><wizard:bind></wizard:bind></div></wizard:screen_bottom>
-  <wizard:wizard_bottom><div><wizard:bind></wizard:bind></div></wizard:wizard_bottom>
+  <div class="screenBottom"></div>
+  <div class="wizardBottom"></div>
 </div>
