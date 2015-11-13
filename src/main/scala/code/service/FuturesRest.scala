@@ -70,7 +70,7 @@ object FuturesRest extends RestHelper {
 
     def space2us(s: String) = s.replaceAll("\\s", "_")
 
-    val u = url("http://en.wikipedia.org/w/api.php") <<? Map("action" -> "opensearch", "limit" -> "100", "search" -> query)
+    val u = url("https://en.wikipedia.org/w/api.php") <<? Map("action" -> "opensearch", "limit" -> "10", "search" -> query)
     for (str <- Http(u OK as.String)) yield {
       val suggestions = for (JArray(re) <- parse(str)(1); JString(s) <- re) yield s
       val re = suggestions.map { r =>
