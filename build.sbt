@@ -1,6 +1,6 @@
 name := "lift-3-demo"
 
-scalaVersion := "2.11.2"
+scalaVersion := "2.11.7"
 
 resolvers ++= Seq(
   "Java.net Maven2 Repository"     at "http://download.java.net/maven/2/",
